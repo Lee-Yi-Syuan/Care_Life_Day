@@ -73,8 +73,8 @@ function App() {
             🐾 懷生週校狗大頭貼拉霸機 🐾
           </h1>
           <p className="mt-3 flex items-center justify-center gap-1.5 max-w-xl text-sm text-earth-600 sm:text-base">
-            轉動拉霸機，抽中屬於你的校狗大頭貼！每隻狗狗的剩餘份數越多，中獎機率越高。一起認識陪伴我們的校園毛孩吧
-            <img src="/logo.png" alt="logo" className="h-5 w-5 object-contain inline-block" />
+            －－ 一抽二十塊 阿梅胸背帶 －－
+            <img src="/logo.png" alt="logo" className="h-20 w-20 object-contain inline-block" />
           </p>
         </header>
 

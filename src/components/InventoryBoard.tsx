@@ -17,7 +17,7 @@ export function InventoryBoard({ dogs, highlightId }: Props) {
     <div className="rounded-3xl border border-earth-500/20 bg-white/80 p-5 shadow-lg backdrop-blur-sm">
       <div className="mb-4 flex items-center justify-between">
         <h3 className="font-display text-xl text-earth-700 flex items-center gap-2">
-          <img src="/logo.png" alt="logo" className="h-6 w-6 object-contain inline-block" />
+          <img src="/logo.png" alt="logo" className="h-12 w-12 object-contain inline-block" />
           剩餘大頭貼即時看板
         </h3>
         <span className="rounded-full bg-carrot-500/10 px-3 py-1 text-sm font-bold text-carrot-600">
