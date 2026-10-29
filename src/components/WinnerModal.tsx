@@ -1,16 +1,15 @@
 import { DogImage } from './DogImage';
 import type { Dog } from '@/types';
-import { X, Gift, RefreshCw } from 'lucide-react';
+import { X, Gift } from 'lucide-react';
 
 type Props = {
   dog: Dog;
   remainingAfterDraw: number;
   onClose: () => void;
-  onDrawAgain: () => void;
 };
 
 /** 抽中結果彈窗 */
-export function WinnerModal({ dog, remainingAfterDraw, onClose, onDrawAgain }: Props) {
+export function WinnerModal({ dog, remainingAfterDraw, onClose }: Props) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       {/* 背景遮罩 */}
@@ -57,20 +56,13 @@ export function WinnerModal({ dog, remainingAfterDraw, onClose, onDrawAgain }: P
         </p>
 
         {/* 按鈕 */}
-        <div className="flex flex-col gap-3 sm:flex-row">
+        <div className="flex justify-center">
           <button
             onClick={onClose}
-            className="flex flex-1 items-center justify-center gap-2 rounded-full bg-gradient-to-r from-grass-500 to-grass-600 px-6 py-3 font-bold text-white shadow-md transition hover:scale-105 active:scale-95"
+            className="flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-grass-500 to-grass-600 px-10 py-3 font-bold text-white shadow-md transition hover:scale-105 active:scale-95"
           >
             <Gift className="h-5 w-5" />
             收下大頭貼
-          </button>
-          <button
-            onClick={onDrawAgain}
-            className="flex flex-1 items-center justify-center gap-2 rounded-full border-2 border-carrot-500 bg-white px-6 py-3 font-bold text-carrot-600 transition hover:bg-carrot-500/10 active:scale-95"
-          >
-            <RefreshCw className="h-5 w-5" />
-            再次抽獎
           </button>
         </div>
       </div>

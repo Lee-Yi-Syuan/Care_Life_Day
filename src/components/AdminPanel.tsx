@@ -29,7 +29,7 @@ export function AdminPanel({ dogs, onSave, onReset, onBack }: Props) {
   };
 
   const handleReset = () => {
-    const fresh = Object.fromEntries(dogs.map((d) => [d.id, '10']));
+    const fresh = Object.fromEntries(dogs.map((d) => [d.id, '16']));
     setDraft(fresh);
     onReset();
     setSaved(true);
@@ -108,7 +108,7 @@ export function AdminPanel({ dogs, onSave, onReset, onBack }: Props) {
           className="flex items-center gap-2 rounded-full border-2 border-carrot-500 bg-white px-6 py-2.5 font-bold text-carrot-600 transition hover:bg-carrot-500/10 active:scale-95"
         >
           <RotateCcw className="h-4 w-4" />
-          一鍵重置庫存（每隻 10 份）
+          一鍵重置庫存（每隻 16 份）
         </button>
         {saved && (
           <span className="flex items-center gap-1.5 text-sm font-medium text-grass-600 animate-pop-in">

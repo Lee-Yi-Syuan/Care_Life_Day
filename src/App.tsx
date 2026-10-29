@@ -33,13 +33,6 @@ function App() {
     setHighlightId(null);
   }, []);
 
-  const handleDrawAgain = useCallback(() => {
-    setWinner(null);
-    setHighlightId(null);
-    // 再次抽獎由 SlotMachine 內部按鈕觸發；這裡僅關閉彈窗。
-    // 若剩餘為 0 則不會有抽獎按鈕可按。
-  }, []);
-
   // 後台視圖
   if (authed) {
     return (
@@ -112,7 +105,6 @@ function App() {
           dog={dogs.find((d) => d.id === winner.id) ?? winner}
           remainingAfterDraw={dogs.find((d) => d.id === winner.id)?.count ?? 0}
           onClose={handleCloseModal}
-          onDrawAgain={handleDrawAgain}
         />
       )}
 
