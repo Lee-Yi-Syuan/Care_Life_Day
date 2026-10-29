@@ -72,8 +72,9 @@ function App() {
           <h1 className="font-display text-3xl text-carrot-600 sm:text-5xl">
             🐾 懷生週校狗大頭貼拉霸機 🐾
           </h1>
-          <p className="mt-3 max-w-xl text-sm text-earth-600 sm:text-base">
-            轉動拉霸機，抽中屬於你的校狗大頭貼！每隻狗狗的剩餘份數越多，中獎機率越高。一起認識陪伴我們的校園毛孩吧 🐶
+          <p className="mt-3 flex items-center justify-center gap-1.5 max-w-xl text-sm text-earth-600 sm:text-base">
+            轉動拉霸機，抽中屬於你的校狗大頭貼！每隻狗狗的剩餘份數越多，中獎機率越高。一起認識陪伴我們的校園毛孩吧
+            <img src="/logo.png" alt="logo" className="h-5 w-5 object-contain inline-block" />
           </p>
         </header>
 

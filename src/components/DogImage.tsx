@@ -23,7 +23,7 @@ export function DogImage({ dogName, src, slice = 'center', full = false, classNa
     return (
       <div className={`flex items-center justify-center bg-gradient-to-br from-cream-200 to-cream-300 text-earth-700 ${className}`}>
         <div className="flex flex-col items-center gap-1 px-2 text-center">
-          <span className="text-2xl">🐕</span>
+          <img src="/logo.png" alt="logo" className="h-8 w-8 object-contain" />
           <span className="text-sm font-bold leading-tight">{dogName}</span>
         </div>
       </div>
