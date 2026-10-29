@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useMemo } from 'react';
 import { DogImage } from './DogImage';
 import type { Dog } from '@/types';
 
@@ -9,16 +9,18 @@ type Props = {
   winner: Dog | null;
   slice: Slice;
   spinning: boolean;
-  /** true = 仍在滾動；false = 已定格顯示 winner */
+  /** true = 該欄已停止；false = 該欄仍在轉動 */
   stopped: boolean;
   className?: string;
 };
 
-/** 產生滾動時的隨機片段序列（排除 count=0 的狗）。 */
-function shuffledDogs(dogs: Dog[]): Dog[] {
+const ITEM_HEIGHT = 110; // 單格高度 (px)
+
+/** 產生滾動時的隨機狗狗序列 */
+function getShuffledPool(dogs: Dog[]): Dog[] {
   const pool = dogs.filter((d) => d.count > 0);
-  if (pool.length === 0) return dogs;
-  const out = [...pool];
+  const base = pool.length > 0 ? pool : dogs;
+  const out = [...base];
   for (let i = out.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [out[i], out[j]] = [out[j], out[i]];
@@ -26,45 +28,67 @@ function shuffledDogs(dogs: Dog[]): Dog[] {
   return out;
 }
 
-export function SlotColumn({ dogs, winner, slice, spinning, stopped, className = '' }: Props) {
-  const reelRef = useRef<HTMLDivElement>(null);
-
-  // 當 spinning 為 true 時，加入滾動動畫；停止時移除並定位到 winner。
-  useEffect(() => {
-    const el = reelRef.current;
-    if (!el) return;
-    if (spinning) {
-      el.classList.add('reel-spinning');
-      el.classList.remove('reel-settled');
-    } else {
-      el.classList.remove('reel-spinning');
-      el.classList.add('reel-settled');
+export function SlotColumn({
+  dogs,
+  winner,
+  slice,
+  spinning,
+  stopped,
+  className = '',
+}: Props) {
+  // 固定滾動序列，滾動中途不重新洗牌避免畫面閃爍
+  const displayList = useMemo(() => {
+    if (!winner && !spinning) {
+      // 初始靜態狀態：只顯示一隻預設狗狗（例如第一隻）
+      return dogs.slice(0, 1);
     }
-  }, [spinning]);
+    const pool = getShuffledPool(dogs);
+    // 構造長滾輪序列：多次重複，最底下以抽中的 winner 收尾
+    const repeated = [...pool, ...pool, ...pool];
+    return winner ? [...repeated, winner] : repeated;
+  }, [dogs, winner, spinning]);
 
-  const spinDogs = shuffledDogs(dogs);
-  // 滾動時顯示多份重複序列以營造連續滾動感
-  const reelItems = spinning ? [...spinDogs, ...spinDogs, ...spinDogs] : [winner].filter(Boolean) as Dog[];
+  // 目標索引：停止時停在最後一個（即 winner）
+  const targetIndex = Math.max(0, displayList.length - 1);
+
+  // 計算位移：
+  // 1. 轉動中且尚未停止：保持向上偏移循環捲動
+  // 2. 該欄已停止 (stopped === true)：滑到最底部的 winner
+  // 3. 初始狀態：在頂部 0px
+  const translateY = !spinning && stopped && !winner
+    ? 0
+    : stopped && winner
+    ? -(targetIndex * ITEM_HEIGHT)
+    : 0;
 
   return (
-    <div className={`relative h-[110px] w-[110px] overflow-hidden rounded-2xl bg-cream-100 ring-2 ring-earth-500/30 ${className}`}>
-      <div ref={reelRef} className="flex flex-col items-center">
-        {reelItems.length === 0 ? (
-          <div className="flex h-[110px] w-[110px] items-center justify-center text-earth-700/50">—</div>
-        ) : (
-          reelItems.map((d, idx) => (
-            <DogImage
-              key={`${d.id}-${idx}`}
-              dogName={d.name}
-              src={d.image}
-              slice={slice}
-              className="h-[110px] w-[110px] shrink-0"
-            />
-          ))
-        )}
+    <div
+      className={`relative h-[110px] w-[110px] overflow-hidden rounded-2xl bg-cream-100 ring-2 ring-earth-500/30 ${className}`}
+    >
+      <div
+        className={`flex flex-col items-center will-change-transform ${
+          !stopped
+            ? 'animate-slot-fast' // 還沒停的時候快速狂轉
+            : 'transition-transform duration-700 cubic-bezier(0.15, 0.9, 0.25, 1)' // 停止時平滑減速定格
+        }`}
+        style={{
+          transform: `translate3d(0, ${translateY}px, 0)`,
+        }}
+      >
+        {displayList.map((d, idx) => (
+          <DogImage
+            key={`${d.id}-${idx}`}
+            dogName={d.name}
+            src={d.image}
+            slice={slice}
+            className="h-[110px] w-[110px] shrink-0"
+          />
+        ))}
       </div>
-      {!stopped && spinning && (
-        <div className="pointer-events-none absolute inset-0 bg-white/10 backdrop-blur-[1px]" />
+
+      {/* 轉動中的動態模糊與反光遮罩 */}
+      {!stopped && (
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/10 backdrop-blur-[0.5px]" />
       )}
     </div>
   );

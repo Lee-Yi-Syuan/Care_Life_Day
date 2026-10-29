@@ -67,10 +67,10 @@ function App() {
         <header className="text-center">
           <div className="mb-2 inline-flex items-center gap-2 rounded-full bg-grass-500/10 px-4 py-1 text-sm font-medium text-grass-600">
             <PawPrint className="h-4 w-4" />
-            清大關懷生命社 · 懷生週活動
+            清大懷生 · 懷生週活動
           </div>
           <h1 className="font-display text-3xl text-carrot-600 sm:text-5xl">
-            🐾 懷生週校狗大頭貼拉霸機 🐾
+            🐾 懷生週校浪大頭貼拉霸機 🐾
           </h1>
           <p className="mt-3 flex items-center justify-center gap-1.5 max-w-xl text-sm text-earth-600 sm:text-base">
             －－ 一抽二十塊 阿梅胸背帶 －－
