@@ -6,10 +6,11 @@ import { Sparkles, Loader2 } from 'lucide-react';
 
 type Props = {
   dogs: Dog[];
+  onPickImmediate: (dog: Dog) => void;
   onWin: (dog: Dog) => void;
 };
 
-export function SlotMachine({ dogs, onWin }: Props) {
+export function SlotMachine({ dogs, onPickImmediate, onWin }: Props) {
   const [spinning, setSpinning] = useState(false);
   const [winner, setWinner] = useState<Dog | null>(null);
   // 每欄是否已停止
@@ -30,6 +31,9 @@ export function SlotMachine({ dogs, onWin }: Props) {
     const picked = weightedPick(dogs);
     if (!picked) return;
 
+    // 抽中當下立即扣庫存更新狀態
+    onPickImmediate(picked);
+
     clearTimers();
     setWinner(picked);
     setSpinning(true);
@@ -39,16 +43,15 @@ export function SlotMachine({ dogs, onWin }: Props) {
     const t1 = window.setTimeout(() => setColStopped((s) => [true, s[1], s[2]]), 1100);
     const t2 = window.setTimeout(() => setColStopped((s) => [s[0], true, s[2]]), 1500);
     const t3 = window.setTimeout(() => setColStopped((s) => [s[0], s[1], true]), 1900);
-    // 全部停止後延遲 0.3s 觸發 onWin
+    // 全部停止後延遲 0.3s 觸發 onWin 彈窗
     const t4 = window.setTimeout(() => {
       setSpinning(false);
       onWin(picked);
     }, 2200);
     timers.current = [t1, t2, t3, t4];
-  }, [dogs, spinning, onWin, clearTimers]);
+  }, [dogs, spinning, onPickImmediate, onWin, clearTimers]);
 
   const slices: Slice[] = ['left', 'center', 'right'];
-  const allStopped = colStopped[0] && colStopped[1] && colStopped[2];
   const disabled = spinning || total <= 0;
 
   return (

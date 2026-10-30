@@ -3,8 +3,7 @@ import { SlotMachine } from '@/components/SlotMachine';
 import { InventoryBoard } from '@/components/InventoryBoard';
 import { WinnerModal } from '@/components/WinnerModal';
 import { AdminPanel, PasswordModal } from '@/components/AdminPanel';
-import { useDogs } from '@/hooks/useDogs';
-import { totalRemaining } from '@/hooks/useDogs';
+import { useDogs, totalRemaining } from '@/hooks/useDogs';
 import { type Dog } from '@/types';
 import { Settings, PawPrint } from 'lucide-react';
 
@@ -19,14 +18,19 @@ function App() {
 
   const total = totalRemaining(dogs);
 
-  const handleWin = useCallback(
+  // 1. 點擊抽獎抽中的瞬間立刻扣數量並高亮
+  const handlePickImmediate = useCallback(
     (dog: Dog) => {
       decrement(dog.id);
       setHighlightId(dog.id);
-      setWinner(dog);
     },
     [decrement]
   );
+
+  // 2. 動畫轉完 2.2 秒後，單純彈出視窗
+  const handleShowResult = useCallback((dog: Dog) => {
+    setWinner(dog);
+  }, []);
 
   const handleCloseModal = useCallback(() => {
     setWinner(null);
@@ -49,10 +53,8 @@ function App() {
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-cream-100 via-cream-50 to-cream-200">
-      {/* 背景裝飾：飄動的掌印 */}
       <BackgroundPaws />
 
-      {/* 後台管理按鈕（右上角，低調精緻） */}
       <button
         onClick={() => setShowPassword(true)}
         className="fixed right-4 top-4 z-30 flex items-center gap-2 rounded-full border border-earth-500/20 bg-white/70 px-4 py-2 text-sm font-medium text-earth-600 shadow-sm backdrop-blur transition hover:bg-white hover:text-earth-700 hover:shadow-md"
@@ -61,9 +63,7 @@ function App() {
         <span className="hidden sm:inline">後台管理</span>
       </button>
 
-      {/* 主內容 */}
       <main className="relative z-10 mx-auto flex max-w-5xl flex-col items-center gap-8 px-4 py-10 sm:py-14">
-        {/* 標題區 */}
         <header className="text-center">
           <div className="mb-2 inline-flex items-center gap-2 rounded-full bg-grass-500/10 px-4 py-1 text-sm font-medium text-grass-600">
             <PawPrint className="h-4 w-4" />
@@ -78,29 +78,29 @@ function App() {
           </p>
         </header>
 
-        {/* 拉霸機 */}
-        <SlotMachine dogs={dogs} onWin={handleWin} />
+        {/* 傳入即時扣除與動畫結束回呼 */}
+        <SlotMachine
+          dogs={dogs}
+          onPickImmediate={handlePickImmediate}
+          onWin={handleShowResult}
+        />
 
-        {/* 剩餘用盡提示 */}
         {total <= 0 && (
           <div className="animate-pop-in rounded-2xl border-2 border-carrot-500 bg-carrot-500/10 px-6 py-4 text-center font-bold text-carrot-600">
             🎉 所有大頭貼已被抽完囉！感謝大家的參與～
           </div>
         )}
 
-        {/* 即時剩餘看板 */}
         <div className="w-full">
           <InventoryBoard dogs={dogs} highlightId={highlightId} />
         </div>
 
-        {/* 頁尾 */}
         <footer className="mt-4 text-center text-xs text-earth-500">
           <p>清華大學關懷生命社 · 懷生週 2026</p>
           <p className="mt-1">關心校園動物，以領養代替購買 🐾</p>
         </footer>
       </main>
 
-      {/* 抽中彈窗 */}
       {winner && (
         <WinnerModal
           dog={dogs.find((d) => d.id === winner.id) ?? winner}
@@ -109,7 +109,6 @@ function App() {
         />
       )}
 
-      {/* 密碼驗證彈窗 */}
       {showPassword && (
         <PasswordModal
           onSuccess={() => {
@@ -123,7 +122,6 @@ function App() {
   );
 }
 
-/** 背景飄動的掌印裝飾 */
 function BackgroundPaws() {
   const spots = [
     { top: '8%', left: '6%', size: 28, delay: '0s' },
