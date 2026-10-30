@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { SlotColumn, type Slice } from './SlotColumn';
 import { weightedPick, totalRemaining } from '@/hooks/useDogs';
+import { playSound, SOUNDS } from '@/hooks/useSound';
 import { type Dog } from '@/types';
 import { Sparkles, Loader2 } from 'lucide-react';
 
@@ -33,6 +34,7 @@ export function SlotMachine({ dogs, onPickImmediate, onWin }: Props) {
 
     // 抽中當下立即扣庫存更新狀態
     onPickImmediate(picked);
+    playSound(SOUNDS.spin);
 
     clearTimers();
     setWinner(picked);
@@ -43,9 +45,10 @@ export function SlotMachine({ dogs, onPickImmediate, onWin }: Props) {
     const t1 = window.setTimeout(() => setColStopped((s) => [true, s[1], s[2]]), 1100);
     const t2 = window.setTimeout(() => setColStopped((s) => [s[0], true, s[2]]), 1500);
     const t3 = window.setTimeout(() => setColStopped((s) => [s[0], s[1], true]), 1900);
-    // 全部停止後延遲 0.3s 觸發 onWin 彈窗
+    // 全部停止後觸發中獎音效與彈窗
     const t4 = window.setTimeout(() => {
       setSpinning(false);
+      playSound(SOUNDS.win);
       onWin(picked);
     }, 2200);
     timers.current = [t1, t2, t3, t4];
@@ -57,7 +60,7 @@ export function SlotMachine({ dogs, onPickImmediate, onWin }: Props) {
   return (
     <div className="flex flex-col items-center gap-6">
       {/* 拉霸機視窗外框 */}
-      <div className="relative rounded-[2rem] border-4 border-carrot-500 bg-gradient-to-b from-cream-200 to-cream-100 p-5 shadow-[0_18px_40px_-12px_rgba(93,74,51,0.5)] sm:p-6">
+      <div className="relative rounded-[2rem] border-4 border-carrot-500 bg-gradient-to-b from-cream-200 to-cream-100 p-5 shadow-[0_18px_40px_-12px_rgba(30,58,95,0.35)] sm:p-6">
         {/* 裝飾燈泡 */}
         <Bulbs active={spinning} />
         {/* 三欄視窗 */}
@@ -91,7 +94,7 @@ export function SlotMachine({ dogs, onPickImmediate, onWin }: Props) {
         className={`group relative flex items-center gap-3 rounded-full px-10 py-4 text-lg font-display tracking-wider transition-all duration-300
           ${disabled
             ? 'cursor-not-allowed bg-gray-300 text-gray-500'
-            : 'bg-gradient-to-r from-carrot-500 to-carrot-600 text-white shadow-[0_10px_25px_-6px_rgba(217,100,26,0.6)] hover:scale-105 hover:shadow-[0_14px_30px_-6px_rgba(217,100,26,0.7)] active:scale-95'}
+            : 'bg-gradient-to-r from-grass-500 to-grass-600 text-white shadow-[0_10px_25px_-6px_rgba(37,99,235,0.55)] hover:scale-105 hover:shadow-[0_14px_30px_-6px_rgba(37,99,235,0.7)] active:scale-95'}
         `}
       >
         {spinning ? (
@@ -102,7 +105,7 @@ export function SlotMachine({ dogs, onPickImmediate, onWin }: Props) {
         ) : total <= 0 ? (
           <span>🐾 全部抽完囉！</span>
         ) : (
-          <span className="text-stroke-warm">🐾 點擊抽獎 🐾</span>
+          <span>🐾 點擊抽獎 🐾</span>
         )}
       </button>
     </div>

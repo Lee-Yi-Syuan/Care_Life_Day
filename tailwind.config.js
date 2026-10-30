@@ -4,33 +4,34 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['"Noto Sans TC"', '"PingFang TC"', '"Microsoft JhengHei"', 'system-ui', 'sans-serif'],
-        display: ['"Zcool KuaiLe"', '"Noto Sans TC"', 'system-ui', 'sans-serif'],
+        sans: ['AppFont', '"PingFang TC"', '"Microsoft JhengHei"', 'system-ui', 'sans-serif'],
+        display: ['AppFont', '"PingFang TC"', '"Microsoft JhengHei"', 'system-ui', 'sans-serif'],
       },
       colors: {
         cream: {
-          50: '#fffdf5',
-          100: '#fdf6e3',
-          200: '#f8ecd0',
-          300: '#f0dca8',
+          50: '#fffdf3',
+          100: '#fff9e0',
+          200: '#fff1bf',
+          300: '#ffe591',
         },
         carrot: {
-          400: '#f4924d',
-          500: '#ed7d2b',
-          600: '#d9641a',
+          300: '#fff3b0',
+          400: '#ffdf4d',
+          500: '#ffc91f',
+          600: '#a86400',
         },
         grass: {
-          400: '#7cb342',
-          500: '#5d9e3a',
-          600: '#4a7e2c',
+          400: '#60a5fa',
+          500: '#2563eb',
+          600: '#1e4fc0',
         },
         earth: {
-          500: '#8d6e4f',
-          700: '#5d4a33',
-          900: '#3a2d1f',
+          500: '#4a6a94',
+          700: '#1e3a5f',
+          900: '#14284a',
         },
         paw: {
-          pink: '#f4b8c0',
+          pink: '#93c5fd',
         },
       },
       animation: {
@@ -47,15 +48,15 @@ export default {
         },
         countBump: {
           '0%,100%': { transform: 'scale(1)' },
-          '40%': { transform: 'scale(1.35)', color: '#ed7d2b' },
+          '40%': { transform: 'scale(1.35)', color: '#a86400' },
         },
         confettiFade: {
           '0%': { transform: 'translateY(0) rotate(0)', opacity: '1' },
           '100%': { transform: 'translateY(180px) rotate(360deg)', opacity: '0' },
         },
         glowPulse: {
-          '0%,100%': { boxShadow: '0 0 0 0 rgba(237,125,43,0.0)' },
-          '50%': { boxShadow: '0 0 28px 6px rgba(237,125,43,0.55)' },
+          '0%,100%': { boxShadow: '0 0 0 0 rgba(255,201,31,0.0)' },
+          '50%': { boxShadow: '0 0 28px 6px rgba(255,201,31,0.6)' },
         },
         floatY: {
           '0%,100%': { transform: 'translateY(0)' },

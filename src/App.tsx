@@ -6,9 +6,13 @@ import { AdminPanel, PasswordModal } from '@/components/AdminPanel';
 import { useDogs, totalRemaining } from '@/hooks/useDogs';
 import { type Dog } from '@/types';
 import { Settings, PawPrint } from 'lucide-react';
+import { MusicToggle } from '@/components/MusicToggle';
+import { useBackgroundMusic } from '@/hooks/useSound';
 
 function App() {
   const { dogs, decrement, updateCounts, reset } = useDogs();
+  const music = useBackgroundMusic();
+
   const [winner, setWinner] = useState<Dog | null>(null);
   const [highlightId, setHighlightId] = useState<number | null>(null);
 
@@ -54,6 +58,8 @@ function App() {
   return (
     <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-cream-100 via-cream-50 to-cream-200">
       <BackgroundPaws />
+
+      <MusicToggle muted={music.muted} onToggle={music.toggleMuted} />
 
       <button
         onClick={() => setShowPassword(true)}

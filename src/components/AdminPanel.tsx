@@ -187,7 +187,7 @@ export function PasswordModal({
           </button>
           <button
             type="submit"
-            className="flex-1 rounded-full bg-gradient-to-r from-carrot-500 to-carrot-600 px-4 py-2 text-sm font-bold text-white shadow-md transition hover:scale-105 active:scale-95"
+            className="flex-1 rounded-full bg-gradient-to-r from-grass-500 to-grass-600 px-4 py-2 text-sm font-bold text-white shadow-md transition hover:scale-105 active:scale-95"
           >
             進入
           </button>
