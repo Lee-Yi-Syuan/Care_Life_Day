@@ -94,7 +94,7 @@ export function SlotMachine({ dogs, onPickImmediate, onWin }: Props) {
         className={`group relative flex items-center gap-3 rounded-full px-10 py-4 text-lg font-display tracking-wider transition-all duration-300
           ${disabled
             ? 'cursor-not-allowed bg-gray-300 text-gray-500'
-            : 'bg-gradient-to-r from-grass-500 to-grass-600 text-white shadow-[0_10px_25px_-6px_rgba(37,99,235,0.55)] hover:scale-105 hover:shadow-[0_14px_30px_-6px_rgba(37,99,235,0.7)] active:scale-95'}
+            : 'bg-gradient-to-r from-grass-400 to-grass-500 text-earth-900 shadow-[0_10px_25px_-6px_rgba(255,201,31,0.6)] hover:scale-105 hover:shadow-[0_14px_30px_-6px_rgba(255,201,31,0.75)] active:scale-95'}
         `}
       >
         {spinning ? (

@@ -59,7 +59,7 @@ export function WinnerModal({ dog, remainingAfterDraw, onClose }: Props) {
         <div className="flex justify-center">
           <button
             onClick={onClose}
-            className="flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-grass-500 to-grass-600 px-10 py-3 font-bold text-white shadow-md transition hover:scale-105 active:scale-95"
+            className="flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-grass-400 to-grass-500 px-10 py-3 font-bold text-earth-900 shadow-md transition hover:scale-105 active:scale-95"
           >
             <Gift className="h-5 w-5" />
             收下大頭貼

@@ -98,7 +98,7 @@ export function AdminPanel({ dogs, onSave, onReset, onBack }: Props) {
       <div className="mt-5 flex flex-wrap items-center gap-3">
         <button
           onClick={handleSave}
-          className="flex items-center gap-2 rounded-full bg-gradient-to-r from-grass-500 to-grass-600 px-6 py-2.5 font-bold text-white shadow-md transition hover:scale-105 active:scale-95"
+          className="flex items-center gap-2 rounded-full bg-gradient-to-r from-grass-400 to-grass-500 px-6 py-2.5 font-bold text-earth-900 shadow-md transition hover:scale-105 active:scale-95"
         >
           <Save className="h-4 w-4" />
           儲存更新
@@ -187,7 +187,7 @@ export function PasswordModal({
           </button>
           <button
             type="submit"
-            className="flex-1 rounded-full bg-gradient-to-r from-grass-500 to-grass-600 px-4 py-2 text-sm font-bold text-white shadow-md transition hover:scale-105 active:scale-95"
+            className="flex-1 rounded-full bg-gradient-to-r from-grass-400 to-grass-500 px-4 py-2 text-sm font-bold text-earth-900 shadow-md transition hover:scale-105 active:scale-95"
           >
             進入
           </button>

@@ -15,15 +15,15 @@ export default {
           300: '#ffe591',
         },
         carrot: {
-          300: '#fff3b0',
-          400: '#ffdf4d',
-          500: '#ffc91f',
-          600: '#a86400',
-        },
-        grass: {
+          300: '#bfdbfe',
           400: '#60a5fa',
           500: '#2563eb',
           600: '#1e4fc0',
+        },
+        grass: {
+          400: '#ffe066',
+          500: '#ffc91f',
+          600: '#a86400',
         },
         earth: {
           500: '#4a6a94',
@@ -31,7 +31,7 @@ export default {
           900: '#14284a',
         },
         paw: {
-          pink: '#93c5fd',
+          pink: '#fde68a',
         },
       },
       animation: {
@@ -48,15 +48,15 @@ export default {
         },
         countBump: {
           '0%,100%': { transform: 'scale(1)' },
-          '40%': { transform: 'scale(1.35)', color: '#a86400' },
+          '40%': { transform: 'scale(1.35)', color: '#1e4fc0' },
         },
         confettiFade: {
           '0%': { transform: 'translateY(0) rotate(0)', opacity: '1' },
           '100%': { transform: 'translateY(180px) rotate(360deg)', opacity: '0' },
         },
         glowPulse: {
-          '0%,100%': { boxShadow: '0 0 0 0 rgba(255,201,31,0.0)' },
-          '50%': { boxShadow: '0 0 28px 6px rgba(255,201,31,0.6)' },
+          '0%,100%': { boxShadow: '0 0 0 0 rgba(37,99,235,0.0)' },
+          '50%': { boxShadow: '0 0 28px 6px rgba(37,99,235,0.5)' },
         },
         floatY: {
           '0%,100%': { transform: 'translateY(0)' },
